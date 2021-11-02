@@ -28,7 +28,6 @@ dd {
 }
 
 body {
-  min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -68,13 +67,110 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 #main {
-    width: 100%;
-    height: 100%;
-    max-width: 960px;
-    max-height: 960px;
-    min-width: 320px;
-    min-height: 320px;
+    width: 960px;
+    height: 960px;
+    min-width: 360px;
+    min-height: 360px;
+    position: relative;
+}
+
+img {
+    position: absolute;
+}
+
+.logo {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.table {
+    top: 365px;
+}
+
+.dish_plate {
+    width: 265px;
+}
+.dish_plate_0 {
+    left: 165px;
+    top: 355px;
+}
+.dish_plate_1 {
+    top: 355px;
+    right: 165px;
+}
+.dish_plate_2 {
+    width: 310px;
+    top: 500px;
+    right: 50%;
+    transform: translateX(50%);
+}
+.forms {
+    left: 20px;
+    top: 460px;
+}
+.plate {
+    top: 443px;
+    left: 655px;
+}
+.coffe {
+    top: 518px;
+    left: 695px;
+}
+.icecream {
+    top: 624px;
+    left: 190px;
+}
+.rollingpin {
+    top: 695px;
+    left: 190px;
+}
+
+.eat {
+    width: 170px;
+}
+
+.eat_0 {
+    transform: translate(-50%);
+    bottom: 534px;
+    left: 298px;
+}
+
+.eat_1 {
+    transform: translate(50%);
+    bottom: 534px;
+    right: 298px;
+}
+
+.eat_2 {
+    width: 200px;
+    transform: translate(-50%);
+    bottom: 390px;
+    left: 480px;
+}
+.dish {
+    width: 220px;
+}
+
+.dish_0 {
+    transform: translate(-50%);
+    bottom: 527px;
+    left: 298px;
+}
+
+.dish_1 {
+    transform: translate(50%);
+    bottom: 527px;
+    right: 298px;
+}
+
+.dish_2 {
+    width: 260px;
+    transform: translate(-50%);
+    bottom: 372px;
+    left: 480px;
 }
