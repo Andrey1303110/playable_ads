@@ -11,6 +11,7 @@ const create_scene = function() {
 function create_bg(scene) {
     if (scene == 'main') {
         let img = document.createElement('img');
+        img.classList.add('main_bg');
         img.src = `../images/bg/${scene}.png`;
         main_frame.appendChild(img);
     }
@@ -19,8 +20,8 @@ function create_bg(scene) {
 function create_table(scene) {
     if (scene == 'main') {
         let img = document.createElement('img');
-        img.src = `../images/other/table.png`;
         img.classList.add('table');
+        img.src = `../images/other/table.png`;
         main_frame.appendChild(img);
     }
 }
@@ -43,13 +44,13 @@ let table_objects = [
     'coffe',
     'icecream',
     'rollingpin'
-]
+];
 
 let eatable_objects = [
     'cupcake',
     'waffles',
     'fail'
-]
+];
 
 function makeRandomArr(a, b) {
     return Math.random() - 0.5;
@@ -90,6 +91,7 @@ function create_dishes() {
     while (i < eatable_objects.length) {
         let img = document.createElement('img');
         img.src = `../images/other/dish.png`;
+        img.alt = 'dish';
         img.classList.add(`dish`);
         img.classList.add(`${'dish_'}${i}`);
         main_frame.appendChild(img);
@@ -97,9 +99,35 @@ function create_dishes() {
     }
 }
 
-create_bg('main');
-create_table('main');
-create_logo('main');
-create_table_objects('main');
-create_eatable_objects('main');
-create_dishes('main');
+function create_cat() {
+    let img = document.createElement('img');
+    img.src = `../images/cat/hand.png`;
+    img.classList.add(`cat_hand`);
+    main_frame.appendChild(img);
+    img = document.createElement('img');
+    img.src = `../images/cat/body.png`;
+    img.classList.add(`cat_body`);
+    main_frame.appendChild(img);
+}
+
+function create_main_scene() {
+    create_bg('main');
+    create_table('main');
+    create_logo('main');
+    create_table_objects('main');
+    create_eatable_objects('main');
+    create_dishes('main');
+    create_cat('main');
+}
+
+create_main_scene();
+
+let dishes = document.querySelector('#main');
+dishes.addEventListener('click', function(e) {
+  if (e.target.alt == 'dish') {
+    for(let i = 0; i < document.querySelectorAll('.dish').length; i++) {
+        document.querySelectorAll('.dish')[i].classList.remove('active');
+    }
+    e.target.classList.toggle('active');
+  }
+}, false);

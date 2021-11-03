@@ -1,78 +1,14 @@
-*,
-*::before,
-*::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-ul[class],
-ol[class] {
-  padding: 0;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-ul[class],
-ol[class],
-li,
-figure,
-figcaption,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
-
-body {
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
-ul[class],
-ol[class] {
-  list-style: none;
-}
-
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-article > * + * {
-  margin-top: 1em;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-* {
-  line-height: 1em;
-}
+@import url('for_index.css');
 
 body {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    overflow: hidden;
 }
 
 #main {
-    width: 960px;
-    height: 960px;
     min-width: 360px;
     min-height: 360px;
     position: relative;
@@ -82,7 +18,12 @@ img {
     position: absolute;
 }
 
+img.main_img {
+    position: relative;
+}
+
 .logo {
+    width: 22%;
     top: 2.15%;
     left: 50%;
     transform: translateX(-50%);
@@ -154,11 +95,13 @@ img {
 .eat_2 {
     width: 19%;
     transform: translate(-50%);
-    bottom: 39%;
+    bottom: 39.5%;
     left: 50%;
 }
 .dish {
     width: 23%;
+    transition: all .65s ease-in-out;
+    cursor: pointer;
 }
 
 .dish_0 {
@@ -167,10 +110,22 @@ img {
     left: 31%;
 }
 
+.dish_0.active {
+    bottom: 70%;
+    left: 28%;
+    transform: translate(-50%) rotate(-27deg);
+}
+
 .dish_1 {
     transform: translate(50%);
     bottom: 55.65%;
     right: 31%;
+}
+
+.dish_1.active {
+    bottom: 70%;
+    right: 28%;
+    transform: translate(50%) rotate(27deg);
 }
 
 .dish_2 {
@@ -178,4 +133,44 @@ img {
     transform: translate(-50%);
     bottom: 37.8%;
     left: 50%;
+}
+
+.dish_2.active {
+    bottom: 55%;
+    left: 47%;
+    transform: translate(-50%) rotate(-27deg);
+}
+
+.cat_hand {
+    width: 29%;
+    bottom: 0%;
+    right: 32%;
+    transform: rotate(-4deg);
+    animation: move_hand 1.25s infinite;
+}
+
+@keyframes move_hand { 
+    0% { 
+        bottom: 2%;
+        right: 32.15%;
+        transform: rotate(4deg);
+    } 
+    50% {
+        width: 29%;
+        bottom: 0%;
+        right: 31.5%;
+        transform: rotate(-4deg);
+    }
+    100% {
+        bottom: 2%;
+        right: 32.15%;
+        transform: rotate(4deg);
+    }
+}
+
+
+.cat_body {
+    width: 32%;
+    bottom: 0;
+    right: 10%;
 }
