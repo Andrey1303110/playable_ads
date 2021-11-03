@@ -30,13 +30,61 @@ img.main_img {
     position: relative;
 }
 
+.copyrights {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 30px;
+    padding: 20px 20% 0 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    bottom: 0;
+    font-size: .4em;
+    line-height: .4em;
+    font-family: "Lato";
+    color: rgba(255, 255, 255, 1);
+    background: linear-gradient(0deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+.copyrights span {
+    margin-top: 2px;
+}
+.copyrights img {
+    position: static;
+    width: 20%;
+    min-width: 50px;
+    max-width: 100px;
+}
+
 .logo {
     width: 22%;
     top: 2.15%;
     left: 50%;
     transform: translateX(-50%);
 }
-
+.logo_final {
+    width: 41%;
+    left: 46%;
+    top: -20%;
+}
+.play_logo {
+    animation: play_logo .5s 1 forwards;
+}
+@keyframes play_logo { 
+    60% {
+        top: 6%;
+    }
+    80% {
+        top: -1.5%;
+    }
+    100% {
+        top: 0%;
+    }
+}
 .table {
     bottom: 0;
 }
@@ -63,6 +111,10 @@ img.main_img {
     left: 2%;
     top: 48%;
 }
+.forms.final {
+    top: 103%;
+    left: 3%;
+}
 .plate {
     width: 15%;
     top: 46%;
@@ -82,6 +134,10 @@ img.main_img {
     width: 16.35%;
     top: 72%;
     left: 21%;
+}
+.rollingpin.final {
+    top: 104%;
+    left: 80.5%;
 }
 
 .eat {
@@ -181,6 +237,25 @@ img.main_img {
     bottom: 0;
     right: 10%;
 }
+.cat_final {
+    height: 67%;
+    bottom: 100%;
+    right: -50%;
+}
+.cat_final.play {
+    animation: cat_final .5s 1s 1 forwards;
+}
+
+@keyframes cat_final { 
+    from { 
+        bottom: 100%;
+        right: -50%;
+    }
+    to {
+        right: 14%;
+        bottom: 0%;
+    }
+}
 
 .scene_result, .rays {
     left: 50%;
@@ -196,6 +271,26 @@ img.main_img {
 .rays {
     width: 100%;
     top: 50%;
+}
+
+.candice {
+    height: 84%;
+    top: -100%;
+    left: -50%;
+}
+.candice.play {
+    animation: candice .5s 1s 1 forwards;
+}
+
+@keyframes candice { 
+    from { 
+        top: -100%;
+        left: -50%;
+    }
+    to {
+        top: 4.8%;
+        left: 16%;
+    }
 }
 
 .now_play {
@@ -216,5 +311,46 @@ img.main_img {
     100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
+    }
+}
+
+.final_bg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.final_play {
+    animation: play_scene .65s 1 forwards;
+}
+
+@keyframes play_scene { 
+    from { 
+        opacity: 0;
+    } 
+    to {
+        opacity: 1;
+    }
+}
+
+.table_final {
+    width: 100%;
+    bottom: -15%;
+}
+
+.play {
+    animation: play_table .5s 1 forwards;
+}
+
+@keyframes play_table { 
+    60% { 
+        transform: translateY(-100%);
+    }
+    80% {
+        transform: translateY(-160%);
+    }
+    100% {
+        transform: translateY(-128%);
     }
 }
