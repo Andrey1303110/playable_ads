@@ -83,94 +83,99 @@ img {
 }
 
 .logo {
-    top: 20px;
+    top: 2.15%;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .table {
-    top: 365px;
+    bottom: 0;
 }
 
 .dish_plate {
-    width: 265px;
+    width: 27%;
 }
 .dish_plate_0 {
-    left: 165px;
-    top: 355px;
+    left: 17.5%;
+    top: 36.5%;
 }
 .dish_plate_1 {
-    top: 355px;
-    right: 165px;
+    top: 36.5%;
+    right: 17.5%;
 }
 .dish_plate_2 {
-    width: 310px;
-    top: 500px;
+    width: 32%;
+    top: 53%;
     right: 50%;
     transform: translateX(50%);
 }
 .forms {
-    left: 20px;
-    top: 460px;
+    width: 31.5%;
+    left: 2%;
+    top: 48%;
 }
 .plate {
-    top: 443px;
-    left: 655px;
+    width: 15%;
+    top: 46%;
+    left: 71%;
 }
 .coffe {
-    top: 518px;
-    left: 695px;
+    width: 10%;
+    top: 54%;
+    left: 74%;
 }
 .icecream {
-    top: 624px;
-    left: 190px;
+    width: 12%;
+    top: 67%;
+    left: 19%;
 }
 .rollingpin {
-    top: 695px;
-    left: 190px;
+    width: 16.35%;
+    top: 72%;
+    left: 21%;
 }
 
 .eat {
-    width: 170px;
+    width: 15%;
 }
 
 .eat_0 {
     transform: translate(-50%);
-    bottom: 534px;
-    left: 298px;
+    bottom: 57%;
+    left: 31.2%;
 }
 
 .eat_1 {
     transform: translate(50%);
-    bottom: 534px;
-    right: 298px;
+    bottom: 57%;
+    right: 31.2%;
 }
 
 .eat_2 {
-    width: 200px;
+    width: 19%;
     transform: translate(-50%);
-    bottom: 390px;
-    left: 480px;
+    bottom: 39%;
+    left: 50%;
 }
 .dish {
-    width: 220px;
+    width: 23%;
 }
 
 .dish_0 {
     transform: translate(-50%);
-    bottom: 527px;
-    left: 298px;
+    bottom: 55.65%;
+    left: 31%;
 }
 
 .dish_1 {
     transform: translate(50%);
-    bottom: 527px;
-    right: 298px;
+    bottom: 55.65%;
+    right: 31%;
 }
 
 .dish_2 {
-    width: 260px;
+    width: 26%;
     transform: translate(-50%);
-    bottom: 372px;
-    left: 480px;
+    bottom: 37.8%;
+    left: 50%;
 }
