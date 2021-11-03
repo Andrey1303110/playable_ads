@@ -1,4 +1,5 @@
 const main_frame = document.querySelector('#main');
+let scene;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -89,6 +90,9 @@ function create_eatable_objects() {
         if (eatable_objects[i] == 'fail') {
             dish_img.classList.add(`fail`);
         }
+        if (eatable_objects[i] != 'fail') {
+            dish_img.classList.add(`win`);
+        }
         main_frame.appendChild(dish_img);
 
         i++;
@@ -118,8 +122,6 @@ function create_main_scene() {
 create_main_scene();
 
 function result (scene_result) {
-    console.log('you ' + scene_result);
-
     let rays_img = document.createElement('img');
     rays_img.src = `images/other/rays.png`;
     rays_img.classList.add(`rays`);
@@ -135,21 +137,20 @@ function result (scene_result) {
     img.classList.add(`now_play`);
 }
 
-let dishes = document.querySelector('#main');
-dishes.addEventListener('click', function(e) {
-    let scene;
-    if (e.target.alt == 'dish') {
-        for(let i = 0; i < document.querySelectorAll('.dish').length; i++) {
-            document.querySelectorAll('.dish')[i].classList.remove('active');
+for(let i = 0; i < document.querySelectorAll('.dish').length; i++) {
+    document.querySelectorAll('.dish')[i].addEventListener('click', function(){
+        document.querySelectorAll('.dish')[i].classList.remove('active');
+        this.classList.toggle('active');
+        if (this.classList.contains('fail')) {
+            scene = 'fail';
         }
-        e.target.classList.toggle('active');
-    }
-    if (e.target.classList.contains('fail')) {
-        scene = 'fail';
-    }
-    else scene = 'win';
-    result(scene);
-}, false);
+        if (this.classList.contains('win')) {
+            scene = 'win';
+        }
+        result(scene);
+    });
+}
+
 
 function drag_drop(elem) {
     for (let i = 0; i < elem.length; i++) {
