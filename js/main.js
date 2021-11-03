@@ -36,9 +36,6 @@ function create_logo(scene) {
 }
 
 let table_objects = [
-    'dish_plate',
-    'dish_plate',
-    'dish_plate',
     'forms',
     'plate',
     'coffe',
@@ -62,13 +59,7 @@ function create_table_objects() {
     while (i < table_objects.length) {
         let img = document.createElement('img');
         img.src = `../images/other/${table_objects[i]}.png`;
-        if (table_objects[i] == 'dish_plate') {
-            img.classList.add(`${table_objects[i]}`);
-            img.classList.add(`${table_objects[i]}_${i}`);
-        }
-        else {
-            img.classList.add(table_objects[i]);
-        }
+        img.classList.add(table_objects[i]);
         main_frame.appendChild(img);
         i++;
     }
@@ -77,24 +68,29 @@ function create_table_objects() {
 function create_eatable_objects() {
     let i = 0;
     while (i < eatable_objects.length) {
-        let img = document.createElement('img');
-        img.src = `../images/eat/${eatable_objects[i]}.png`;
-        img.classList.add(`eat`);
-        img.classList.add(`${'eat_'}${i}`);
-        main_frame.appendChild(img);
-        i++;
-    }
-}
 
-function create_dishes() {
-    let i = 0;
-    while (i < eatable_objects.length) {
-        let img = document.createElement('img');
-        img.src = `../images/other/dish.png`;
-        img.alt = 'dish';
-        img.classList.add(`dish`);
-        img.classList.add(`${'dish_'}${i}`);
-        main_frame.appendChild(img);
+        let dish_plate_img = document.createElement('img');
+        dish_plate_img.src = `../images/other/dish_plate.png`;
+        dish_plate_img.classList.add(`dish_plate`);
+        dish_plate_img.classList.add(`${'dish_plate_'}${i}`);
+        main_frame.appendChild(dish_plate_img);
+
+        let eat_img = document.createElement('img');
+        eat_img.src = `../images/eat/${eatable_objects[i]}.png`;
+        eat_img.classList.add(`eat`);
+        eat_img.classList.add(`${'eat_'}${i}`);
+        main_frame.appendChild(eat_img);
+
+        let dish_img = document.createElement('img');
+        dish_img.src = `../images/other/dish.png`;
+        dish_img.alt = 'dish';
+        dish_img.classList.add(`dish`);
+        dish_img.classList.add(`${'dish_'}${i}`);
+        if (eatable_objects[i] == 'fail') {
+            dish_img.classList.add(`fail`);
+        }
+        main_frame.appendChild(dish_img);
+
         i++;
     }
 }
@@ -116,18 +112,49 @@ function create_main_scene() {
     create_logo('main');
     create_table_objects('main');
     create_eatable_objects('main');
-    create_dishes('main');
     create_cat('main');
 }
 
 create_main_scene();
 
+function result (scene_result) {
+    console.log('you ' + scene_result);
+
+    let rays_img = document.createElement('img');
+    rays_img.src = `../images/other/rays.png`;
+    rays_img.classList.add(`rays`);
+    main_frame.appendChild(rays_img);
+
+    let img = document.createElement('img');
+    img.src = `../images/other/${scene_result}.png`;
+    img.classList.add(`${scene_result}`);
+    img.classList.add(`scene_result`);
+    main_frame.appendChild(img);
+
+    rays_img.classList.add(`now_play`);
+    img.classList.add(`now_play`);
+}
+
 let dishes = document.querySelector('#main');
 dishes.addEventListener('click', function(e) {
-  if (e.target.alt == 'dish') {
-    for(let i = 0; i < document.querySelectorAll('.dish').length; i++) {
-        document.querySelectorAll('.dish')[i].classList.remove('active');
+    let scene;
+    if (e.target.alt == 'dish') {
+        for(let i = 0; i < document.querySelectorAll('.dish').length; i++) {
+            document.querySelectorAll('.dish')[i].classList.remove('active');
+        }
+        e.target.classList.toggle('active');
     }
-    e.target.classList.toggle('active');
-  }
+    if (e.target.classList.contains('fail')) {
+        scene = 'fail';
+    }
+    else scene = 'win';
+    result(scene);
 }, false);
+
+function drag_drop(elem) {
+    for (let i = 0; i < elem.length; i++) {
+        elem[i].setAttribute('draggable', false);
+    }
+}
+let images = document.querySelectorAll('img');
+drag_drop(images);

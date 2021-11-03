@@ -1,5 +1,13 @@
 @import url('for_index.css');
 
+*{
+    outline: none;
+    outline-offset: none;
+    outline-style: none;
+    outline-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 body {
     display: flex;
     flex-direction: row;
@@ -168,9 +176,45 @@ img.main_img {
     }
 }
 
-
 .cat_body {
     width: 32%;
     bottom: 0;
     right: 10%;
+}
+
+.scene_result, .rays {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.scene_result {
+    width: 70%;
+    top: 41%;
+}
+
+.rays {
+    width: 100%;
+    top: 50%;
+}
+
+.now_play {
+    animation: scene_result .25s 1.5s 1 forwards;
+}
+
+@keyframes scene_result { 
+    0% { 
+        transform: translate(-50%, -50%) scale(15);
+    } 
+    92% {
+        transform: translate(-50%, -50%) scale(.85);
+        opacity: 1;
+    }
+    96% {
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
