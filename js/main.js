@@ -12,7 +12,7 @@ function create_bg(scene) {
     if (scene == 'main') {
         let img = document.createElement('img');
         img.classList.add('main_bg');
-        img.src = `../images/bg/${scene}.png`;
+        img.src = `images/bg/${scene}.png`;
         main_frame.appendChild(img);
     }
 }
@@ -21,7 +21,7 @@ function create_table(scene) {
     if (scene == 'main') {
         let img = document.createElement('img');
         img.classList.add('table');
-        img.src = `../images/other/table.png`;
+        img.src = `images/other/table.png`;
         main_frame.appendChild(img);
     }
 }
@@ -30,7 +30,7 @@ function create_logo(scene) {
     if (scene == 'main') {
         let img = document.createElement('img');
         img.classList.add('logo');
-        img.src = `../images/other/logo.png`;
+        img.src = `images/other/logo.png`;
         main_frame.appendChild(img);
     }
 }
@@ -58,7 +58,7 @@ function create_table_objects() {
     let i = 0;
     while (i < table_objects.length) {
         let img = document.createElement('img');
-        img.src = `../images/other/${table_objects[i]}.png`;
+        img.src = `images/other/${table_objects[i]}.png`;
         img.classList.add(table_objects[i]);
         main_frame.appendChild(img);
         i++;
@@ -70,19 +70,19 @@ function create_eatable_objects() {
     while (i < eatable_objects.length) {
 
         let dish_plate_img = document.createElement('img');
-        dish_plate_img.src = `../images/other/dish_plate.png`;
+        dish_plate_img.src = `images/other/dish_plate.png`;
         dish_plate_img.classList.add(`dish_plate`);
         dish_plate_img.classList.add(`${'dish_plate_'}${i}`);
         main_frame.appendChild(dish_plate_img);
 
         let eat_img = document.createElement('img');
-        eat_img.src = `../images/eat/${eatable_objects[i]}.png`;
+        eat_img.src = `images/eat/${eatable_objects[i]}.png`;
         eat_img.classList.add(`eat`);
         eat_img.classList.add(`${'eat_'}${i}`);
         main_frame.appendChild(eat_img);
 
         let dish_img = document.createElement('img');
-        dish_img.src = `../images/other/dish.png`;
+        dish_img.src = `images/other/dish.png`;
         dish_img.alt = 'dish';
         dish_img.classList.add(`dish`);
         dish_img.classList.add(`${'dish_'}${i}`);
@@ -97,11 +97,11 @@ function create_eatable_objects() {
 
 function create_cat() {
     let img = document.createElement('img');
-    img.src = `../images/cat/hand.png`;
+    img.src = `images/cat/hand.png`;
     img.classList.add(`cat_hand`);
     main_frame.appendChild(img);
     img = document.createElement('img');
-    img.src = `../images/cat/body.png`;
+    img.src = `images/cat/body.png`;
     img.classList.add(`cat_body`);
     main_frame.appendChild(img);
 }
@@ -121,12 +121,12 @@ function result (scene_result) {
     console.log('you ' + scene_result);
 
     let rays_img = document.createElement('img');
-    rays_img.src = `../images/other/rays.png`;
+    rays_img.src = `images/other/rays.png`;
     rays_img.classList.add(`rays`);
     main_frame.appendChild(rays_img);
 
     let img = document.createElement('img');
-    img.src = `../images/other/${scene_result}.png`;
+    img.src = `images/other/${scene_result}.png`;
     img.classList.add(`${scene_result}`);
     img.classList.add(`scene_result`);
     main_frame.appendChild(img);
