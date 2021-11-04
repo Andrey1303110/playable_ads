@@ -240,4 +240,31 @@ function drag_drop(elem) {
 let images = document.querySelectorAll('img');
 drag_drop(images);
 
+window.addEventListener('resize', setSize, true);
 
+function setSize() {
+    //main_frame.style.height = main_frame.clientWidth + 'px';
+    if (screen.orientation.type === 'landscape-primary') {
+        main_frame.style.height = window.innerHeight + 'px';
+        main_frame.style.width = window.innerHeight + 'px';
+        //main_frame.style.transform = `translateY(${(main_frame.clientHeight - window.innerWidth)/2 *-1 + 'px'})`;
+    }
+    if (screen.orientation.type === 'portrait-primary') {
+        if (window.outerHeight > 960) {
+            main_frame.style.height = '960px';
+            main_frame.style.width = '960px';
+            let scale = window.outerHeight/960;
+            main_frame.style.transform = `scale(${scale}) translateY(${((960 * scale - 960) / 2) + 'px'})`;
+        }
+        if (window.outerHeight <= 960) {
+            main_frame.style.height = window.outerHeight + 'px';
+            main_frame.style.width = main_frame.style.height;
+            main_frame.style.transform = `scale(1) translateY(0)`;
+            main_frame.style.transform = `scale(1) translateY(${((960 * scale - 960) / 2) *-1 + 'px'})`;
+        }
+    }
+}
+
+setSize();
+
+//alert(window.innerHeight)
