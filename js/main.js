@@ -259,8 +259,7 @@ function setSize() {
         if (window.outerHeight <= 960) {
             main_frame.style.height = window.outerHeight + 'px';
             main_frame.style.width = main_frame.style.height;
-            main_frame.style.transform = `scale(1) translateY(0)`;
-            main_frame.style.transform = `scale(1) translateY(${((960 * scale - 960) / 2) *-1 + 'px'})`;
+            main_frame.style.transform = `translateX(${(main_frame.clientHeight - window.outerWidth)/2 *-1 + 'px'})`;
         }
     }
 }

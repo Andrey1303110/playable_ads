@@ -17,6 +17,7 @@ body {
     min-height: 360px;
     position: relative;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 img {
