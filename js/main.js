@@ -259,7 +259,7 @@ function setSize() {
         if (window.outerHeight <= 960) {
             main_frame.style.height = window.outerHeight + 'px';
             main_frame.style.width = main_frame.style.height;
-            main_frame.style.transform = `translateX(${(main_frame.clientHeight - window.outerWidth)/2 *-1 + 'px'})`;
+            main_frame.style.transform = `translateX(${(main_frame.clientHeight - window.outerWidth)/2 *-1 + 'px'}) scaleX(1)`;
         }
     }
 }
@@ -267,3 +267,36 @@ function setSize() {
 setSize();
 
 //alert(window.innerHeight)
+
+if (screen.height / screen.width > 1.5) {
+    let cof = Math.sqrt((screen.height/1.5)/screen.width)/10;
+    cof = cof + (cof/10);
+    for (let i = 0; i < images.length; i++) {
+        let current_left = getComputedStyle(images[i]).left;
+        images[i].style.left = current_left;
+        if ( (current_left.includes('px')) && (current_left.slice(0, -2) != screen.height/2) && (current_left.slice(0, -2) != 0) ) {
+            if (current_left.slice(0, -2) < screen.height/2) {
+                images[i].style.left = images[i].style.left.slice(0, -2) * 1 + screen.width * cof + 'px';
+            }
+            if (current_left.slice(0, -2) > screen.height/2) {
+                //console.log(images[i].style.left);
+                images[i].style.left = images[i].style.left.slice(0, -2) * 1 - screen.width * cof + 'px';
+                //console.log(images[i].style.left);
+            }
+        }
+        if ( images[i].classList.contains('logo') || images[i].classList.contains('main_bg') ){
+            
+        }
+        else if ( images[i].classList.value == 'cat_body' || images[i].classList.value == 'cat_hand' ) {
+            images[i].style.transform = `translateX(-50%)`;
+            images[i].style.left = '';
+            images[i].style.left = current_left.slice(0, -2) - cof*222 + 'px';
+        }
+        else if (images[i].classList.contains('table')) {
+            images[i].style.transform = `translateX(-50%) translateY(${cof*15}%)`;
+        }
+        else {
+            images[i].style.transform = `translateX(-50%) translateY(${cof*100}%) scale(.8)`;
+        }
+    }
+}
