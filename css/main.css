@@ -159,7 +159,7 @@ img.main_img {
 
 .eat_2 {
     width: 19%;
-    bottom: 39.5%;
+    bottom: 39%;
     left: 50%;
 }
 .dish {
@@ -258,6 +258,19 @@ img.main_img {
     top: 41%;
 }
 
+@media screen and (max-width:450px) {
+    .scene_result {
+        width: 50%;
+    }
+    .cat_final {
+        height: 59%;
+    }
+    .logo_final {
+        width: 35%;
+        left: 60%;
+    }
+}
+
 .rays {
     width: 100%;
     top: 50%;
@@ -268,6 +281,7 @@ img.main_img {
     top: -100%;
     left: -50%;
 }
+
 .candice.play {
     animation: candice .5s 1s 1 forwards;
 }
@@ -280,6 +294,22 @@ img.main_img {
     to {
         top: 8.8%;
         left: 37%;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .candice {
+        height: 70%;
+    }
+    @keyframes candice { 
+        from { 
+            top: -100%;
+            left: -50%;
+        }
+        to {
+            top: 18.8%;
+            left: 37%;
+        }
     }
 }
 
