@@ -35,6 +35,13 @@ function create_bg(scene) {
     main_frame.appendChild(img);
     if (scene == 'final') {
         img.style.animationPlayState = 'running';
+
+        for (let i = 0; i < 3; i++) {
+            let sparkle = document.createElement('img');
+            sparkle.classList.add(`sparkle_${i}`);
+            sparkle.src = `images/other/sparkle.png`;
+            main_frame.appendChild(sparkle);
+        }   
     }
 }
 

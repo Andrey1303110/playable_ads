@@ -153,6 +153,12 @@ img.main_img {
     left: 3%;
     animation: play_table .5s 1 forwards paused;
 }
+@media screen and (max-width: 385px) {
+    .forms.final {
+        top: 103%;
+        left: 11%;
+    }
+}
 .plate {
     width: 15%;
     top: 46%;
@@ -180,7 +186,7 @@ img.main_img {
 }
 @media screen and (max-width: 385px) {
     .rollingpin.final {
-        left: 71%;
+        left: 70.5%;
     }
 }   
 
@@ -368,6 +374,18 @@ img.main_img {
         }
     }
 }
+@media screen and (max-width:380px) {
+    @keyframes candice { 
+        from { 
+            top: -100%;
+            left: -50%;
+        }
+        to {
+            top: 18.8%;
+            left: 42%;
+        }
+    }
+}
 
 @keyframes scene_result { 
     0% { 
@@ -500,4 +518,23 @@ img.main_img {
     right: -150px;
     transition: all .5s ease-in-out;
     cursor: pointer;
+}
+
+.sparkle_0 {
+    left: 38%;
+    width: 5%;
+    top: 4%;
+}
+
+.sparkle_1 {
+    left: 58%;
+    width: 4%;
+    top: 24%;
+    transform: rotate(45deg);
+}
+
+.sparkle_2 {
+    left: 70%;
+    width: 9%;
+    top: 24%;
 }
