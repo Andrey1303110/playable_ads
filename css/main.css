@@ -64,6 +64,12 @@ img.main_img {
     max-width: 100px;
     transform: translateX(0%)
 }
+@media screen and (max-width: 385px) {
+    .copyrights {
+        font-size: 10px;
+        line-height: 10px;
+    }
+}
 
 .logo {
     width: 22%;
@@ -74,9 +80,7 @@ img.main_img {
     width: 41%;
     left: 65%;
     top: -20%;
-}
-.play_logo {
-    animation: play_logo .5s 1 forwards;
+    animation: play_logo .5s 1 forwards paused;
 }
 @keyframes play_logo { 
     60% {
@@ -118,6 +122,7 @@ img.main_img {
 .forms.final {
     top: 103%;
     left: 3%;
+    animation: play_table .5s 1 forwards paused;
 }
 .plate {
     width: 15%;
@@ -204,9 +209,10 @@ img.main_img {
 
 .cat_hand {
     width: 29%;
-    bottom: 0%;
+    bottom: -100%;
     left: 39%;
     transform: rotate(3deg) translateY(-6%) translateX(-3%);
+    transition: all .5s ease-in-out;
     animation: move_hand 1.25s infinite;
 }
 
@@ -224,16 +230,15 @@ img.main_img {
 
 .cat_body {
     width: 32%;
-    bottom: 0;
+    bottom: -100%;
     left: 73%;
+    transition: all .5s ease-in-out;
 }
 .cat_final {
     height: 67%;
     bottom: 100%;
     left: 150%;
-}
-.cat_final.play {
-    animation: cat_final .5s 1s 1 forwards;
+    animation: cat_final .5s 1s 1 forwards paused;
 }
 
 @keyframes cat_final { 
@@ -251,6 +256,7 @@ img.main_img {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
+    animation: scene_result .25s 1.5s 1 forwards paused;
 }
 
 .scene_result {
@@ -271,6 +277,24 @@ img.main_img {
     }
 }
 
+@media screen and (max-width:385px) {
+
+    .logo_final {
+        width: 35%;
+        left: 57%;
+    }
+    @keyframes cat_final { 
+        from { 
+            bottom: 100%;
+            left: 150%;
+        }
+        to {
+            left: 59%;
+            bottom: 0%;
+        }
+    }
+}
+
 .rays {
     width: 100%;
     top: 50%;
@@ -280,10 +304,7 @@ img.main_img {
     height: 80%;
     top: -100%;
     left: -50%;
-}
-
-.candice.play {
-    animation: candice .5s 1s 1 forwards;
+    animation: candice .5s 1s 1 forwards paused;
 }
 
 @keyframes candice { 
@@ -311,10 +332,6 @@ img.main_img {
             left: 37%;
         }
     }
-}
-
-.now_play {
-    animation: scene_result .25s 1.5s 1 forwards;
 }
 
 @keyframes scene_result { 
@@ -357,10 +374,7 @@ img.main_img {
 .table_final {
     width: 100%;
     bottom: -15%;
-}
-
-.play {
-    animation: play_table .5s 1 forwards;
+    animation: play_table .5s 1 forwards paused;
 }
 
 @keyframes play_table { 
@@ -411,3 +425,45 @@ img.main_img {
         left: 26%;
     }
 }*/
+
+.button_play_now {
+    left: 50%;
+    width: 50%;
+    bottom: -30%;
+    transform: translateX(-50%) scale(1);
+    animation: button_play_now .4s 1 forwards paused;
+}
+
+@keyframes button_play_now { 
+    60% { 
+        bottom: 10%;
+    }
+    90% {
+        bottom: 7%;
+    }
+    100% {
+        bottom: 10%;
+    }
+}
+
+@keyframes button_play_now_wait { 
+    from { 
+        transform: translateX(-50%) scale(1);
+    }
+    33% {
+        transform: translateX(-50%) scale(1.05);
+    }
+    66% {
+        transform: translateX(-50%) scale(.95);
+    }
+    to {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.button_restart {
+    width: 5.5%;
+    bottom: 3.33%;
+    right: -150px;
+    transition: all .5s ease-in-out;
+}

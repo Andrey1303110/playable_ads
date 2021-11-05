@@ -1,6 +1,12 @@
 const main_frame = document.querySelector('#main');
 let scene;
 
+function delay(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -13,14 +19,15 @@ function create_copyrights() {
     let div = document.createElement('div')
     div.classList.add('copyrights');
     main_frame.appendChild(div);
+
     let span = document.createElement('span');
     span.innerText = '© 2019 Playtika Santa Monica LLC. All Rights Reserved';
     div.appendChild(span);
+
     let img = document.createElement('img');
     img.src = `images/other/playtica_logo.png`;
     div.appendChild(img);
 }
-create_copyrights();
 
 function create_bg(scene) {
     let img = document.createElement('img');
@@ -44,7 +51,7 @@ function create_table(scene) {
         img.classList.add(`table_${scene}`);
         img.src = `images/other/table_${scene}.png`;
         main_frame.appendChild(img);
-        img.classList.add(`play`);
+        img.style.animationPlayState = 'running';
     }
 }
 
@@ -60,7 +67,7 @@ function create_logo(scene) {
         img.classList.add(`logo_${scene}`);
         img.src = `images/other/${scene}_logo.png`;
         main_frame.appendChild(img);
-        img.classList.add(`play_logo`);
+        img.style.animationPlayState = 'running';
     }
 }
 
@@ -107,7 +114,7 @@ function create_table_objects(scene) {
             img.classList.add(final_table_objects[i]);
             img.classList.add(scene);
             main_frame.appendChild(img);
-            img.classList.add(`play`);
+            img.style.animationPlayState = 'running';
             i++;
         }
     }
@@ -150,14 +157,18 @@ function create_eatable_objects(scene) {
 
 function create_character(scene) {
     if (scene == 'main') {
-        let img = document.createElement('img');
-        img.src = `images/cat/hand.png`;
-        img.classList.add(`cat_hand`);
-        main_frame.appendChild(img);
-        img = document.createElement('img');
-        img.src = `images/cat/body.png`;
-        img.classList.add(`cat_body`);
-        main_frame.appendChild(img);
+        let img_cat_hand = document.createElement('img');
+        img_cat_hand.src = `images/cat/hand.png`;
+        img_cat_hand.classList.add(`cat_hand`);
+        
+        img_cat_body = document.createElement('img');
+        img_cat_body.src = `images/cat/body.png`;
+        img_cat_body.classList.add(`cat_body`);
+
+        main_frame.appendChild(img_cat_hand);
+        main_frame.appendChild(img_cat_body);
+
+        setTimeout(()=>{img_cat_hand.style.bottom = '0'; img_cat_body.style.bottom = '0';}, 250)
     }
     if (scene == 'final') {
 
@@ -173,14 +184,49 @@ function create_character(scene) {
         cat_img.classList.add(`cat_${scene}`);
         main_frame.appendChild(cat_img);
 
-        candys_img.classList.add(`play`);
-        cat_img.classList.add(`play`);
+        candys_img.style.animationPlayState = 'running';
+        cat_img.style.animationPlayState = 'running';
     }
 }
 
 function create_buttons(scene) {
     if (scene == 'final') {
-
+        let play_button = document.createElement('img');
+        play_button.src = `images/other/play_now.png`;
+        play_button.classList.add(`button_play_now`);
+        main_frame.appendChild(play_button);
+        document.querySelector('.cat_final').addEventListener('animationend', function (e) {
+            if (e.animationName === 'cat_final') {
+                setTimeout(() => {
+                    play_button.style.animationPlayState = 'running';
+                }, 500);
+            }
+        })
+        if (screen.width < 500) {
+            play_button.style.width = screen.width*.9 + 'px'
+        }
+        play_button.addEventListener('animationend', function (e) {
+            if (e.animationName === 'button_play_now') {
+                setTimeout(() => {
+                    play_button.style.bottom = getComputedStyle(play_button).bottom
+                    play_button.style.animation = "button_play_now_wait .8s linear infinite running";
+                }, 500);
+                setTimeout(() => {
+                    let restart_button = document.createElement('img');
+                    restart_button.src = `images/other/restart.png`;
+                    restart_button.classList.add(`button_restart`);
+                    main_frame.appendChild(restart_button);
+                    delay(1000).then(() => {
+                        if (screen.height > screen.width) {
+                            restart_button.style.right = (screen.height - screen.width)/2 + 'px';
+                        }
+                        else {
+                            restart_button.style.right = screen.height/10 + 'px';
+                        }
+                    });
+                }, 1000);
+            }
+        })
     }
 }
 
@@ -208,12 +254,12 @@ function result(scene_result) {
     img.classList.add(`scene_result`);
     main_frame.appendChild(img);
 
-    rays_img.classList.add(`now_play`);
-    img.classList.add(`now_play`);
+    rays_img.style.animationPlayState = 'running';
+    img.style.animationPlayState = 'running';
 
     img.addEventListener('animationend', function (e) {
         if (e.animationName === 'scene_result') {
-            setTimeout(() => { create_main_scene('final') }, 1000);
+            setTimeout(() => { create_main_scene('final') }, 500);
         }
     })
 }
@@ -273,10 +319,9 @@ function setSize() {
     }
     if (screen.orientation.type === 'portrait-primary') {
         if (window.outerHeight > 960) {
-            main_frame.style.height = '960px';
-            main_frame.style.width = '960px';
-            let scale = window.outerHeight / 960;
-            main_frame.style.transform = `scale(${scale}) translateY(${((960 * scale - 960) / 2) + 'px'})`;
+            main_frame.style.height = window.outerHeight + 'px';
+            main_frame.style.width = window.outerHeight + 'px';
+            main_frame.style.transform = `translateX(${((window.outerHeight - window.outerWidth) / 2 * -1) + 'px'})`;
         }
         if (window.outerHeight <= 960) {
             main_frame.style.height = window.outerHeight + 'px';
@@ -287,8 +332,6 @@ function setSize() {
 }
 
 setSize();
-
-//alert(window.innerHeight)
 
 if (screen.height / screen.width > 1.5) {
     let cof = Math.sqrt((screen.height / 1.5) / screen.width) / 10;
@@ -307,7 +350,7 @@ if (screen.height / screen.width > 1.5) {
                 //console.log(images[i].style.left);
             }
         }
-        if (images[i].classList.contains('logo') || images[i].classList.contains('main_bg')) {
+        if (images[i].classList.contains('logo') || images[i].classList.contains('main_bg') ) {
 
         }
         else if (images[i].classList.value == 'cat_body' || images[i].classList.value == 'cat_hand') {
@@ -323,3 +366,4 @@ if (screen.height / screen.width > 1.5) {
         }
     }
 }
+create_copyrights();
