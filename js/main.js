@@ -28,7 +28,6 @@ function create_copyrights(scene) {
 }
 
 function create_bg(scene) {
-    console.log(scene);
     let img = document.createElement('img');
     img.classList.add(`${scene}_bg`);
     img.src = `images/bg/${scene}.png`;
@@ -203,7 +202,6 @@ function create_character(scene) {
 
 function create_buttons(scene) {
     if (scene == 'final') {
-        console.log(scene)
         let play_button = document.createElement('img');
         play_button.src = `images/other/play_now.png`;
         play_button.classList.add(`button_play_now`);
@@ -233,12 +231,14 @@ function create_buttons(scene) {
                             restart_button.style.right = screen.height/10 + 'px';
                         }
                         restart_button.addEventListener("click", function() {
+                            main_frame.style.opacity = '';
                             let imgs = document.querySelectorAll('img');
-                            for (let i = 0; i < imgs.length; i++) {
-                                imgs[i].remove();
-                            }
                             document.querySelector('div.copyrights').remove();
-                            create_main_scene('main');
+                            setTimeout(()=>{
+                                for (let i = 0; i < imgs.length; i++) {
+                                    imgs[i].remove();
+                                }
+                                create_main_scene('main')},250);
                         }, false);
                     });
                 }, 500);
@@ -248,6 +248,7 @@ function create_buttons(scene) {
 }
 
 function create_main_scene(name) {
+    if (name == 'main') main_frame.style.opacity = '1';
     create_bg(name);
     create_table(name);
     create_logo(name);
@@ -331,11 +332,9 @@ window.addEventListener('resize', setSize, true);
 
 function setSize(scene) {
     if (scene == 'main') {
-        //main_frame.style.height = main_frame.clientWidth + 'px';
         if (screen.orientation.type === 'landscape-primary') {
             main_frame.style.height = window.innerHeight + 'px';
             main_frame.style.width = window.innerHeight + 'px';
-            //main_frame.style.transform = `translateY(${(main_frame.clientHeight - window.innerWidth)/2 *-1 + 'px'})`;
         }
         if (screen.orientation.type === 'portrait-primary') {
             if (window.outerHeight > 960) {

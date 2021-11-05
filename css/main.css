@@ -11,6 +11,7 @@
 
 body {
     overflow: hidden;
+    background: #000000f2;
 }
 
 #main {
@@ -19,6 +20,8 @@ body {
     position: relative;
     margin: 0 auto;
     overflow: hidden;
+    transition: all .25s ease-in-out;
+    opacity: 0;
 }
 
 img {
@@ -518,6 +521,12 @@ img.main_img {
     right: -150px;
     transition: all .5s ease-in-out;
     cursor: pointer;
+}
+@media screen and (min-width:768px) {
+    .button_restart {
+        width: 7%;
+        bottom: 14%;
+    }
 }
 
 .sparkle_0 {
