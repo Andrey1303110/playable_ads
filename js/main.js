@@ -1,5 +1,5 @@
 const main_frame = document.querySelector('#main');
-let scene;
+var scene;
 
 function delay(ms) {
     return new Promise((resolve, reject) => {
@@ -9,10 +9,6 @@ function delay(ms) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-}
-
-const create_scene = function () {
-    console.log('ok');
 }
 
 function create_copyrights() {
@@ -30,12 +26,13 @@ function create_copyrights() {
 }
 
 function create_bg(scene) {
+    console.log(scene);
     let img = document.createElement('img');
     img.classList.add(`${scene}_bg`);
     img.src = `images/bg/${scene}.png`;
     main_frame.appendChild(img);
     if (scene == 'final') {
-        img.classList.add(`${scene}_play`);
+        img.style.animationPlayState = 'running';
     }
 }
 
@@ -186,29 +183,32 @@ function create_character(scene) {
 
         candys_img.style.animationPlayState = 'running';
         cat_img.style.animationPlayState = 'running';
+
+        cat_img.addEventListener('animationend', function (e) {
+            if (e.animationName == 'cat_final') {
+                create_buttons('final')
+            }
+        })
     }
 }
 
 function create_buttons(scene) {
     if (scene == 'final') {
+        console.log(scene)
         let play_button = document.createElement('img');
         play_button.src = `images/other/play_now.png`;
         play_button.classList.add(`button_play_now`);
         main_frame.appendChild(play_button);
-        document.querySelector('.cat_final').addEventListener('animationend', function (e) {
-            if (e.animationName === 'cat_final') {
-                setTimeout(() => {
-                    play_button.style.animationPlayState = 'running';
-                }, 500);
-            }
-        })
+        setTimeout(() => {
+            play_button.style.animationPlayState = 'running';
+        }, 500);
         if (screen.width < 500) {
             play_button.style.width = screen.width*.9 + 'px'
         }
         play_button.addEventListener('animationend', function (e) {
             if (e.animationName === 'button_play_now') {
                 setTimeout(() => {
-                    play_button.style.bottom = getComputedStyle(play_button).bottom
+                    play_button.style.bottom = getComputedStyle(play_button).bottom;
                     play_button.style.animation = "button_play_now_wait .8s linear infinite running";
                 }, 500);
                 setTimeout(() => {
@@ -216,15 +216,19 @@ function create_buttons(scene) {
                     restart_button.src = `images/other/restart.png`;
                     restart_button.classList.add(`button_restart`);
                     main_frame.appendChild(restart_button);
-                    delay(1000).then(() => {
+                    delay(500).then(() => {
                         if (screen.height > screen.width) {
                             restart_button.style.right = (screen.height - screen.width)/2 + 'px';
                         }
                         else {
                             restart_button.style.right = screen.height/10 + 'px';
                         }
+                        scene = 'main';
+                        restart_button.addEventListener("click", function() {
+                            create_main_scene('main');
+                        }, false);
                     });
-                }, 1000);
+                }, 500);
             }
         })
     }
@@ -235,9 +239,12 @@ function create_main_scene(name) {
     create_table(name);
     create_logo(name);
     create_table_objects(name);
+    eatable_objects.sort(makeRandomArr);
     create_eatable_objects(name);
+    dish_click();
     create_character(name);
-    create_buttons(name);
+    setSize(name);
+    set_position_for_all_objects(name);
 }
 
 create_main_scene('main');
@@ -264,40 +271,40 @@ function result(scene_result) {
     })
 }
 
-let dish = document.querySelectorAll('.dish');
-for (let i = 0; i < dish.length; i++) {
-    dish[i].addEventListener('click', function () {
-        dish[i].classList.remove('active');
-        if (screen.orientation.type === 'portrait-primary') {
-            let styles = this.style.transform.split(' ');
-            let translateY;
-            let translateX;
-            for (let i = 0; i < styles.length; i++) {
-                if (styles[i].includes('translateY')) {
-                    translateY = styles[i].replace(/[^.\d]/g, '');
+function dish_click(){
+    let dish = document.querySelectorAll('.dish');
+    for (let i = 0; i < dish.length; i++) {
+        dish[i].addEventListener('click', function () {
+            dish[i].classList.remove('active');
+            if (screen.orientation.type === 'portrait-primary') {
+                let styles = this.style.transform.split(' ');
+                let translateY;
+                let translateX;
+                for (let i = 0; i < styles.length; i++) {
+                    if (styles[i].includes('translateY')) {
+                        translateY = styles[i].replace(/[^.\d]/g, '');
+                    }
+                    if (styles[i].includes('translateX')) {
+                        translateX = styles[i].replace(/[^.\d]/g, '');
+                    }
                 }
-                if (styles[i].includes('translateX')) {
-                    translateX = styles[i].replace(/[^.\d]/g, '');
+                if (dish[i].style.left.slice(0, -2) > screen.height/2) {
+                    dish[i].style.transform = 'translateX' + `( ${translateX * -1 + 8}% ) ` + 'translateY' + `( ${translateY + 50}% ) ` + styles[2] + ' ' + 'rotate(27deg)';
+                }
+                if (dish[i].style.left.slice(0, -2) <= screen.height/2) {
+                    dish[i].style.transform = 'translateX' + `( ${translateX *-1 - 8}% ) ` + 'translateY' + `( ${translateY + 50}% ) ` + styles[2] + ' ' + 'rotate(-27deg)';
                 }
             }
-            if (dish[i].style.left.slice(0, -2) > screen.width) {
-                dish[i].style.transform = 'translateX' + `( ${translateX * -1 + 8}% ) ` + 'translateY' + `( ${translateY - 80}% ) ` + styles[2] + ' ' + 'rotate(27deg)';
-            }
-            if (dish[i].style.left.slice(0, -2) < screen.width) {
-                dish[i].style.transform = 'translateX' + `( ${translateX *-1 - 8}% ) ` + 'translateY' + `( ${translateY - 80}% ) ` + styles[2] + ' ' + 'rotate(-27deg)';
-            }
-        }
-        if (screen.orientation.type === 'landscape-primary') {
             this.classList.toggle('active');
-        }
-        if (this.classList.contains('fail')) {
-            scene = 'fail';
-        }
-        if (this.classList.contains('win')) {
-            scene = 'win';
-        }
-        result(scene);
-    });
+            if (this.classList.contains('fail')) {
+                scene = 'fail';
+            }
+            if (this.classList.contains('win')) {
+                scene = 'win';
+            }
+            result(scene);
+        });
+    }
 }
 
 function drag_drop(elem) {
@@ -305,65 +312,70 @@ function drag_drop(elem) {
         elem[i].setAttribute('draggable', false);
     }
 }
-let images = document.querySelectorAll('img');
-drag_drop(images);
 
 window.addEventListener('resize', setSize, true);
 
-function setSize() {
-    //main_frame.style.height = main_frame.clientWidth + 'px';
-    if (screen.orientation.type === 'landscape-primary') {
-        main_frame.style.height = window.innerHeight + 'px';
-        main_frame.style.width = window.innerHeight + 'px';
-        //main_frame.style.transform = `translateY(${(main_frame.clientHeight - window.innerWidth)/2 *-1 + 'px'})`;
-    }
-    if (screen.orientation.type === 'portrait-primary') {
-        if (window.outerHeight > 960) {
-            main_frame.style.height = window.outerHeight + 'px';
-            main_frame.style.width = window.outerHeight + 'px';
-            main_frame.style.transform = `translateX(${((window.outerHeight - window.outerWidth) / 2 * -1) + 'px'})`;
+function setSize(scene) {
+    if (scene == 'main') {
+        //main_frame.style.height = main_frame.clientWidth + 'px';
+        if (screen.orientation.type === 'landscape-primary') {
+            main_frame.style.height = window.innerHeight + 'px';
+            main_frame.style.width = window.innerHeight + 'px';
+            //main_frame.style.transform = `translateY(${(main_frame.clientHeight - window.innerWidth)/2 *-1 + 'px'})`;
         }
-        if (window.outerHeight <= 960) {
-            main_frame.style.height = window.outerHeight + 'px';
-            main_frame.style.width = main_frame.style.height;
-            main_frame.style.transform = `translateX(${(main_frame.clientHeight - window.outerWidth) / 2 * -1 + 'px'}) scaleX(1)`;
+        if (screen.orientation.type === 'portrait-primary') {
+            if (window.outerHeight > 960) {
+                main_frame.style.height = window.outerHeight + 'px';
+                main_frame.style.width = window.outerHeight + 'px';
+                main_frame.style.transform = `translateX(${((window.outerHeight - window.outerWidth) / 2 * -1) + 'px'})`;
+            }
+            if (window.outerHeight <= 960) {
+                main_frame.style.height = window.outerHeight + 'px';
+                main_frame.style.width = main_frame.style.height;
+                main_frame.style.transform = `translateX(${(main_frame.clientHeight - window.outerWidth) / 2 * -1 + 'px'}) scaleX(1)`;
+            }
+        }
+    }
+
+}
+
+function set_position_for_all_objects(scene) {
+    if (scene == 'main') {
+        let images = document.querySelectorAll('img');
+        for (let i = 0; i < images.length; i++) {
+            if (screen.height / screen.width > 1.5) {
+                let cof = Math.sqrt((screen.height / 1.5) / screen.width) / 10;
+                cof = cof + (cof / 10);
+                let current_left = getComputedStyle(images[i]).left;
+                images[i].style.left = current_left;
+                if ((current_left.includes('px')) && (current_left.slice(0, -2) != screen.height / 2) && (current_left.slice(0, -2) != 0)) {
+                    if (current_left.slice(0, -2) < screen.height / 2) {
+                        images[i].style.left = images[i].style.left.slice(0, -2) * 1 + screen.width * cof + 'px';
+                    }
+                    if (current_left.slice(0, -2) > screen.height / 3) {
+                        images[i].style.left = images[i].style.left.slice(0, -2) * 1 - screen.width * cof + 'px';
+                    }
+                }
+                if (images[i].classList.contains('logo') || images[i].classList.contains('main_bg') ) {
+        
+                }
+                else if (images[i].classList.value == 'cat_body' || images[i].classList.value == 'cat_hand') {
+                    images[i].style.transform = `translateX(-50%)`;
+                    images[i].style.left = '';
+                    images[i].style.left = current_left.slice(0, -2) - cof * 222 + 'px';
+                }
+                else if (images[i].classList.contains('table')) {
+                    images[i].style.transform = `translateX(-50%) translateY(${cof * 15}%)`;
+                }
+                else {
+                    images[i].style.transform = `translateX(-50%) translateY(${cof * 100}%) scale(.8)`;
+                }
+            }
+            else {
+                images[i].style.transform = '';
+            }
         }
     }
 }
 
-setSize();
-
-if (screen.height / screen.width > 1.5) {
-    let cof = Math.sqrt((screen.height / 1.5) / screen.width) / 10;
-    cof = cof + (cof / 10);
-    for (let i = 0; i < images.length; i++) {
-        let current_left = getComputedStyle(images[i]).left;
-        images[i].style.left = current_left;
-        if ((current_left.includes('px')) && (current_left.slice(0, -2) != screen.height / 2) && (current_left.slice(0, -2) != 0)) {
-            if (current_left.slice(0, -2) < screen.height / 2) {
-                images[i].style.left = images[i].style.left.slice(0, -2) * 1 + screen.width * cof + 'px';
-                console.log(images[i].classList);
-            }
-            if (current_left.slice(0, -2) > screen.height / 3) {
-                //console.log(images[i].style.left);
-                images[i].style.left = images[i].style.left.slice(0, -2) * 1 - screen.width * cof + 'px';
-                //console.log(images[i].style.left);
-            }
-        }
-        if (images[i].classList.contains('logo') || images[i].classList.contains('main_bg') ) {
-
-        }
-        else if (images[i].classList.value == 'cat_body' || images[i].classList.value == 'cat_hand') {
-            images[i].style.transform = `translateX(-50%)`;
-            images[i].style.left = '';
-            images[i].style.left = current_left.slice(0, -2) - cof * 222 + 'px';
-        }
-        else if (images[i].classList.contains('table')) {
-            images[i].style.transform = `translateX(-50%) translateY(${cof * 15}%)`;
-        }
-        else {
-            images[i].style.transform = `translateX(-50%) translateY(${cof * 100}%) scale(.8)`;
-        }
-    }
-}
 create_copyrights();

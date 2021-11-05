@@ -60,14 +60,43 @@ img.main_img {
 .copyrights img {
     position: static;
     height: 30px;
-    min-width: 110px;
-    max-width: 100px;
+    max-width: 180px;
     transform: translateX(0%)
 }
 @media screen and (max-width: 385px) {
     .copyrights {
         font-size: 10px;
         line-height: 10px;
+    }
+}
+@media screen and (min-width: 550px) {
+    .copyrights {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .copyrights img {
+        position: static;
+        height: 40px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .copyrights {
+        font-size: 18px;
+        line-height: 18px;
+    }
+    .copyrights img {
+        position: static;
+        height: 45px;
+    }
+}
+@media screen and (min-width: 1440px) {
+    .copyrights {
+        font-size: 22px;
+        line-height: 22px;
+    }
+    .copyrights img {
+        position: static;
+        height: 50px;
     }
 }
 
@@ -147,7 +176,13 @@ img.main_img {
 .rollingpin.final {
     top: 104%;
     left: 78.5%;
+    animation: play_table .5s 1 forwards paused;
 }
+@media screen and (max-width: 385px) {
+    .rollingpin.final {
+        left: 71%;
+    }
+}   
 
 .eat {
     width: 15%;
@@ -164,7 +199,7 @@ img.main_img {
 
 .eat_2 {
     width: 19%;
-    bottom: 39%;
+    bottom: 40%;
     left: 50%;
 }
 .dish {
@@ -356,10 +391,7 @@ img.main_img {
     height: 100%;
     top: 0;
     left: 50%;
-}
-
-.final_play {
-    animation: play_scene .65s 1 forwards;
+    animation: play_scene .65s 1 forwards paused;
 }
 
 @keyframes play_scene { 
@@ -432,6 +464,7 @@ img.main_img {
     bottom: -30%;
     transform: translateX(-50%) scale(1);
     animation: button_play_now .4s 1 forwards paused;
+    cursor: pointer;
 }
 
 @keyframes button_play_now { 
@@ -466,4 +499,5 @@ img.main_img {
     bottom: 3.33%;
     right: -150px;
     transition: all .5s ease-in-out;
+    cursor: pointer;
 }
