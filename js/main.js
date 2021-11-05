@@ -11,18 +11,20 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function create_copyrights() {
-    let div = document.createElement('div')
-    div.classList.add('copyrights');
-    main_frame.appendChild(div);
-
-    let span = document.createElement('span');
-    span.innerText = '© 2019 Playtika Santa Monica LLC. All Rights Reserved';
-    div.appendChild(span);
-
-    let img = document.createElement('img');
-    img.src = `images/other/playtica_logo.png`;
-    div.appendChild(img);
+function create_copyrights(scene) {
+    if (scene == 'main') {
+        let div = document.createElement('div')
+        div.classList.add('copyrights');
+        main_frame.appendChild(div);
+    
+        let span = document.createElement('span');
+        span.innerText = '© 2019 Playtika Santa Monica LLC. All Rights Reserved';
+        div.appendChild(span);
+    
+        let img = document.createElement('img');
+        img.src = `images/other/playtica_logo.png`;
+        div.appendChild(img);
+    }
 }
 
 function create_bg(scene) {
@@ -223,8 +225,12 @@ function create_buttons(scene) {
                         else {
                             restart_button.style.right = screen.height/10 + 'px';
                         }
-                        scene = 'main';
                         restart_button.addEventListener("click", function() {
+                            let imgs = document.querySelectorAll('img');
+                            for (let i = 0; i < imgs.length; i++) {
+                                imgs[i].remove();
+                            }
+                            document.querySelector('div.copyrights').remove();
                             create_main_scene('main');
                         }, false);
                     });
@@ -245,6 +251,7 @@ function create_main_scene(name) {
     create_character(name);
     setSize(name);
     set_position_for_all_objects(name);
+    create_copyrights(name);
 }
 
 create_main_scene('main');
@@ -377,5 +384,3 @@ function set_position_for_all_objects(scene) {
         }
     }
 }
-
-create_copyrights();
