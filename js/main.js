@@ -45,33 +45,21 @@ function create_bg(scene) {
 }
 
 function create_table(scene) {
-    if (scene == 'main') {
-        let img = document.createElement('img');
-        img.classList.add('table');
-        img.src = `images/other/table.png`;
-        main_frame.appendChild(img);
-    }
+    let img = document.createElement('img');
+    img.classList.add(`table_${scene}`);
+    img.src = `images/other/table_${scene}.png`;
+    main_frame.appendChild(img);
     if (scene == 'final') {
-        let img = document.createElement('img');
-        img.classList.add(`table_${scene}`);
-        img.src = `images/other/table_${scene}.png`;
-        main_frame.appendChild(img);
         img.style.animationPlayState = 'running';
     }
 }
 
 function create_logo(scene) {
-    if (scene == 'main') {
-        let img = document.createElement('img');
-        img.classList.add('logo');
-        img.src = `images/other/logo.png`;
-        main_frame.appendChild(img);
-    }
+    let img = document.createElement('img');
+    img.classList.add(`logo_${scene}`);
+    img.src = `images/other/${scene}_logo.png`;
+    main_frame.appendChild(img);
     if (scene == 'final') {
-        let img = document.createElement('img');
-        img.classList.add(`logo_${scene}`);
-        img.src = `images/other/${scene}_logo.png`;
-        main_frame.appendChild(img);
         img.style.animationPlayState = 'running';
     }
 }
@@ -101,8 +89,8 @@ function makeRandomArr(a, b) {
 eatable_objects.sort(makeRandomArr);
 
 function create_table_objects(scene) {
+    let i = 0;
     if (scene == 'main') {
-        let i = 0;
         while (i < table_objects.length) {
             let img = document.createElement('img');
             img.src = `images/other/${table_objects[i]}.png`;
@@ -112,7 +100,6 @@ function create_table_objects(scene) {
         }
     }
     if (scene == 'final') {
-        let i = 0;
         while (i < final_table_objects.length) {
             let img = document.createElement('img');
             img.src = `images/other/${final_table_objects[i]}.png`;
@@ -178,13 +165,11 @@ function create_character(scene) {
     if (scene == 'final') {
 
         let candys_img = document.createElement('img');
-        candys_img = document.createElement('img');
         candys_img.src = `images/other/candice.png`;
         candys_img.classList.add(`candice`);
         main_frame.appendChild(candys_img);
 
         let cat_img = document.createElement('img');
-        cat_img = document.createElement('img');
         cat_img.src = `images/cat/${scene}.png`;
         cat_img.classList.add(`cat_${scene}`);
         main_frame.appendChild(cat_img);
@@ -222,6 +207,7 @@ function create_buttons(scene) {
                     let restart_button = document.createElement('img');
                     restart_button.src = `images/other/restart.png`;
                     restart_button.classList.add(`button_restart`);
+                    restart_button.setAttribute('draggable', false);
                     main_frame.appendChild(restart_button);
                     delay(500).then(() => {
                         if (screen.height > screen.width) {
@@ -244,6 +230,7 @@ function create_buttons(scene) {
                 }, 500);
             }
         })
+        drag_drop();
     }
 }
 
@@ -284,6 +271,7 @@ function result(scene_result) {
             setTimeout(() => { create_main_scene('final') }, 500);
         }
     })
+    drag_drop();
 }
 
 function dish_click(){
@@ -322,9 +310,10 @@ function dish_click(){
     }
 }
 
-function drag_drop(elem) {
-    for (let i = 0; i < elem.length; i++) {
-        elem[i].setAttribute('draggable', false);
+function drag_drop() {
+    let imgs = document.querySelectorAll('img');
+    for (let i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute('draggable', false);
     }
 }
 
@@ -390,3 +379,5 @@ function set_position_for_all_objects(scene) {
         }
     }
 }
+
+drag_drop();
