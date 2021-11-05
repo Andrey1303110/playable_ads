@@ -366,7 +366,7 @@ function set_position_for_all_objects(scene) {
                     images[i].style.left = '';
                     images[i].style.left = current_left.slice(0, -2) - cof * 222 + 'px';
                 }
-                else if (images[i].classList.contains('table')) {
+                else if (images[i].classList.value == 'table_main' || images[i].classList.value == 'table_final') {
                     images[i].style.transform = `translateX(-50%) translateY(${cof * 15}%)`;
                 }
                 else {
