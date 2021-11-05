@@ -216,16 +216,7 @@ function create_buttons(scene) {
                         else {
                             restart_button.style.right = screen.height/10 + 'px';
                         }
-                        restart_button.addEventListener("click", function() {
-                            main_frame.style.opacity = '';
-                            let imgs = document.querySelectorAll('img');
-                            document.querySelector('div.copyrights').remove();
-                            setTimeout(()=>{
-                                for (let i = 0; i < imgs.length; i++) {
-                                    imgs[i].remove();
-                                }
-                                create_main_scene('main')},250);
-                        }, false);
+                        restart_button.addEventListener("click", restart, false);
                     });
                 }, 500);
             }
@@ -317,7 +308,7 @@ function drag_drop() {
     }
 }
 
-window.addEventListener('resize', setSize, true);
+window.addEventListener('resize', ()=>{location.reload()}, false);
 
 function setSize(scene) {
     if (scene == 'main') {
@@ -381,3 +372,15 @@ function set_position_for_all_objects(scene) {
 }
 
 drag_drop();
+
+function restart() {
+    main_frame.style.opacity = '';
+    let imgs = document.querySelectorAll('img');
+    document.querySelector('.copyrights').remove();
+    setTimeout(()=>{
+        for (let i = 0; i < imgs.length; i++) {
+            imgs[i].remove();
+        }
+        create_main_scene('main')
+    },250);
+}
